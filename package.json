@@ -1,0 +1,38 @@
+{
+  "name": "query-string-prisma-ume",
+  "version": "1.0.41",
+  "description": "Parse query for prisma",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotranminhchu/query-string-prisma-ume.git"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try {fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('Error folder:', fpath, e)}});process.exit(0);\"",
+    "build": "npm run rmdir -- dist  && tsc && tsc -p tsconfig.esm.json",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "swagger",
+    "typescript"
+  ],
+  "author": "dotranminhchu",
+  "license": "Unlicense",
+  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "module": "./dist/esm/index.js",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "hwrld": "^2.1.1"
+  }
+}
