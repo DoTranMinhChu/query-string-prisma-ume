@@ -68,7 +68,7 @@ const select = [
   "field2",
   {
     nestedField1: ["nestedField1a", "nestedField1b"],
-    nestedField2: "$all",
+    nestedField2: ["$all"],
   },
 ];
 
@@ -93,13 +93,17 @@ const filter = {
   name: {
     contains: "John",
   },
+  address: {
+    contains: "ho chi minh",
+    mode: "insensitive",
+  },
   age: {
     gt: 30,
   },
 };
 
 const jsonString = prismaWhereConditionToJsonString(filter);
-console.log(jsonString); // Output: '{"filter":{"name":{"contains":"John"},"age":{"gt":30}}}'
+console.log(jsonString); // Output: '{"filter":{"name":{"contains":"John","address":{"contains":"ho chi minh","mode":"insensitive"}},"age":{"gt":30}}}'
 ```
 
 ## License
