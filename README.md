@@ -12,23 +12,26 @@ These utility functions can be used in any TypeScript/typeScript project. To use
 
 1. Install the required packages (Prisma may need to be installed separately):
 
-   ```bash
-   npm install query-string-prisma-ume
-   ```
+```bash
+npm install query-string-prisma-ume
+```
 
 2. Import the utility functions into your project:
 
-   ```typescript
-   import {
-     prismaOrderByToJsonString,
-     prismaSelectToJsonString,
-     prismaWhereConditionToJsonString,
-   } from "query-string-prisma-ume";
-   ```
+```typescript
+import {
+  prismaOrderByToJsonString,
+  prismaSelectToJsonString,
+  prismaWhereConditionToJsonString,
+} from "query-string-prisma-ume";
+```
+
+## Functions
 
 ### Interface for example
 
 ```typescript
+// ./interfaces
 interface UserResponse {
   id: string;
   dob: string;
@@ -60,8 +63,6 @@ interface CommentResponse {
   post?: PostResponse;
 }
 ```
-
-## Functions
 
 ### 1. `prismaOrderByToJsonString`
 
@@ -174,7 +175,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-[Your Name]
+[Do Tran Minh Chu]
 
 ## Acknowledgments
 
@@ -182,4 +183,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Feel free to replace `[Your Name]` in the author section with your actual name or your project's author information. This README provides a basic structure that you can expand upon to include more details or explanations if needed.
+Feel free to replace `[Do Tran Minh Chu]` in the author section with your actual name or your project's author information. This README provides a basic structure that you can expand upon to include more details or explanations if needed.
