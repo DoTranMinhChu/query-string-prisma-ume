@@ -8,7 +8,7 @@ This documentation provides information about three utility functions for workin
 
 ## Installation
 
-These utility functions can be used in any TypeScript/JavaScript project. To use them, follow these steps:
+These utility functions can be used in any TypeScript/typeScript project. To use them, follow these steps:
 
 1. Install the required packages (Prisma may need to be installed separately):
 
@@ -18,13 +18,48 @@ These utility functions can be used in any TypeScript/JavaScript project. To use
 
 2. Import the utility functions into your project:
 
-   ```javascript
+   ```typescript
    import {
      prismaOrderByToJsonString,
      prismaSelectToJsonString,
      prismaWhereConditionToJsonString,
-   } from "./prisma-utils";
+   } from "query-string-prisma-ume";
    ```
+
+### Interface for example
+
+```typescript
+interface UserResponse {
+  id: string;
+  dob: string;
+  name: string;
+  address: string;
+  age: number;
+  isActivated: boolean;
+  posts?: Array<PostResponse>;
+  comments?: Array<CommentResponse>;
+}
+
+interface PostResponse {
+  id: string;
+  userId: string;
+  slug: string;
+  title: string;
+  content: string;
+  date: Date;
+  tags: Array<string>;
+  user?: UserResponse;
+  comments?: Array<CommentResponse>;
+}
+
+interface CommentResponse {
+  id: string;
+  userId: string;
+  postId: string;
+  user?: UserResponse;
+  post?: PostResponse;
+}
+```
 
 ## Functions
 
@@ -40,13 +75,19 @@ Converts a Prisma orderBy object to a JSON string.
 
 #### Example
 
-```javascript
-const orderBy = {
+```typescript
+import {
+  prismaOrderByToJsonString,
+  PrismaOrderByType,
+} from "query-string-prisma-ume";
+import { UserResponse } from "./interfaces";
+
+const orderBy: PrismaOrderByType<UserResponse> = {
   name: "asc",
   age: "desc",
 };
 
-const jsonString = prismaOrderByToJsonString(orderBy);
+const jsonString = prismaOrderByToJsonString<UserResponse>(orderBy);
 console.log(jsonString); // Output: '{"name":"asc","age":"desc"}'
 ```
 
@@ -62,19 +103,33 @@ Converts a Prisma select object to a JSON string.
 
 #### Example
 
-```javascript
-const selectProvider = [
-  "$all",
+```typescript
+import { prismaSelectToJsonString } from "query-string-prisma-ume";
+import { UserResponse } from "./interfaces";
+// Define a complex Prisma select type
+const complexSelect: PrismaSelectType<UserResponse> = [
+  "$all", // Select all fields of UserResponse
+
+  // Select comments with specific properties, including user details
   {
-    user: ["email", "dob", "phone"],
+    comments: [
+      "$all",
+      {
+        user: ["id", "name"],
+      },
+    ],
   },
+
+  // Select posts with specific properties
   {
-    providerSkills: ["$all"],
+    posts: ["id", "title", "content", "tags"],
   },
 ];
 
-const jsonString = prismaSelectToJsonString(select);
-console.log(jsonString); // Output: '["$all",{"user":["email","dob","phone"]},{"providerSkills":["$all"]}]'
+// Convert the select type to a JSON string
+const complexSelectJson = prismaSelectToJsonString<UserResponse>(complexSelect);
+
+console.log(complexSelectJson);
 ```
 
 ### 3. `prismaWhereConditionToJsonString`
@@ -89,8 +144,14 @@ Converts a Prisma where condition object to a JSON string.
 
 #### Example
 
-```javascript
-const filter = {
+```typescript
+import {
+  prismaWhereConditionToJsonString,
+  PrismaWhereConditionType,
+} from "query-string-prisma-ume";
+import { UserResponse } from "./interfaces";
+
+const filter: PrismaWhereConditionType<UserResponse> = {
   name: {
     contains: "John",
   },
@@ -103,7 +164,7 @@ const filter = {
   },
 };
 
-const jsonString = prismaWhereConditionToJsonString(filter);
+const jsonString = prismaWhereConditionToJsonString<UserResponse>(filter);
 console.log(jsonString); // Output: '{"filter":{"name":{"contains":"John","address":{"contains":"ho chi minh","mode":"insensitive"}},"age":{"gt":30}}}'
 ```
 
