@@ -15,8 +15,8 @@ import { PrismaWhereConditionType } from "./prismaWhereCondition.type";
  * const jsonString = prismaWhereConditionToJsonString(condition);
  * console.log(jsonString); // Output: '{"filter":{"OR":[{"equals":{"id":1}},...'
  */
-export function prismaWhereConditionToJsonString(
-  filter: PrismaWhereConditionType
+export function prismaWhereConditionToJsonString<T = {}>(
+  filter: PrismaWhereConditionType<T>
 ): string {
   return JSON.stringify(filter);
 }

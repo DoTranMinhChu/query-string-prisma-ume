@@ -26,7 +26,9 @@ type FilterCondition = {
 } & {
   mode?: "default" | "insensitive";
 };
-
+type MakeFieldOptional<T> = {
+  [K in keyof T]?: T[K] | FilterCondition;
+};
 /**
  * A generic object type representing filter conditions for Prisma queries.
  * This type includes a set of allowed filter keys, such as 'equals', 'not', 'in', 'notIn', etc.,
@@ -80,7 +82,7 @@ type FilterCondition = {
  * @property {PrismaWhereConditionType[]} [OR] - Logical OR condition.
  * @property {PrismaWhereConditionType[]} [NOT] - Logical NOT condition.
  */
-export type PrismaWhereConditionType = {
+export type PrismaWhereConditionType<T = {}> = {
   [key: string]:
     | FilterCondition
     | string
@@ -89,8 +91,8 @@ export type PrismaWhereConditionType = {
     | string[]
     | number[]
     | object[];
-} & {
-  AND?: PrismaWhereConditionType[];
-  OR?: PrismaWhereConditionType[];
-  NOT?: PrismaWhereConditionType[];
-};
+} & MakeFieldOptional<T> & {
+    AND?: PrismaWhereConditionType<T>[];
+    OR?: PrismaWhereConditionType<T>[];
+    NOT?: PrismaWhereConditionType<T>[];
+  };

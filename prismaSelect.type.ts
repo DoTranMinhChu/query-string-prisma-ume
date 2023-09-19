@@ -1,7 +1,12 @@
 type PrismaField = string;
 
-type PrismaSelectTypeBase = {
-  [key: string]: PrismaSelectType | PrismaField[];
+type ExcludeStringAndNumberKeys<T> = {
+  [key in keyof T]?: T[key] extends object
+    ? PrismaSelectType<T[key]> | "$all"
+    : PrismaSelectType<T> | string[] | "$all";
 };
-
-export type PrismaSelectType = (PrismaField | "$all" | PrismaSelectTypeBase)[];
+export type PrismaSelectType<T = {}> = (
+  | "$all"
+  | keyof T
+  | ExcludeStringAndNumberKeys<T>
+)[];
