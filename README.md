@@ -63,17 +63,18 @@ Converts a Prisma select object to a JSON string.
 #### Example
 
 ```javascript
-const select = [
-  "field1",
-  "field2",
+const selectProvider = [
+  "$all",
   {
-    nestedField1: ["nestedField1a", "nestedField1b"],
-    nestedField2: ["$all"],
+    user: ["email", "dob", "phone"],
+  },
+  {
+    providerSkills: ["$all"],
   },
 ];
 
 const jsonString = prismaSelectToJsonString(select);
-console.log(jsonString); // Output: '["field1","field2",{"nestedField1":["nestedField1a","nestedField1b"],"nestedField2":["$all"]}]'
+console.log(jsonString); // Output: '["$all",{"user":["email","dob","phone"]},{"providerSkills":["$all"]}]'
 ```
 
 ### 3. `prismaWhereConditionToJsonString`

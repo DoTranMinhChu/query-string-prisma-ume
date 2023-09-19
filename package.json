@@ -1,6 +1,6 @@
 {
   "name": "query-string-prisma-ume",
-  "version": "1.0.45",
+  "version": "1.0.50",
   "description": "Parse query for prisma",
   "repository": {
     "type": "git",
