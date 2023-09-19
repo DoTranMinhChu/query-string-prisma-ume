@@ -73,7 +73,7 @@ const select = [
 ];
 
 const jsonString = prismaSelectToJsonString(select);
-console.log(jsonString); // Output: '["field1","field2",{"nestedField1":["nestedField1a","nestedField1b"],"nestedField2":"$all"}]'
+console.log(jsonString); // Output: '["field1","field2",{"nestedField1":["nestedField1a","nestedField1b"],"nestedField2":["$all"]}]'
 ```
 
 ### 3. `prismaWhereConditionToJsonString`
