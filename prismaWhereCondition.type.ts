@@ -19,6 +19,7 @@ type FilterCondition = {
   [K in AllowedKeys]?:
     | string
     | number
+    | boolean
     | object
     | string[]
     | number[]
@@ -87,6 +88,7 @@ export type PrismaWhereConditionType<T = {}> = {
     | FilterCondition
     | string
     | number
+    | boolean
     | object
     | string[]
     | number[]

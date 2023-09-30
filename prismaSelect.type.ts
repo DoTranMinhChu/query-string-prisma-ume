@@ -11,7 +11,7 @@ type ExcludeStringAndNumberKeys<T> = {
       : E
     : T[key] extends object
     ? PrismaSelectType<T[key]> | "$all"
-    : T[key] extends string | number
+    : T[key] extends string | number | boolean
     ? T[key]
     : PrismaSelectType<T> | "$all";
 };
