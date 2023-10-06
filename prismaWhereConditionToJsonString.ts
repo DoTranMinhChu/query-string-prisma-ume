@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { PrismaWhereConditionType } from "./prismaWhereCondition.type";
 
 /**
@@ -16,7 +17,13 @@ import { PrismaWhereConditionType } from "./prismaWhereCondition.type";
  * console.log(jsonString); // Output: '{"filter":{"OR":[{"equals":{"id":1}},...'
  */
 export function prismaWhereConditionToJsonString<T = {}>(
-  filter: PrismaWhereConditionType<T>
+  filter: PrismaWhereConditionType<T>,
+  omitBy: ("isUndefined" | "isNull" | "isEmpty")[] = []
 ): string {
-  return JSON.stringify(filter);
+  let newFilter: any = filter;
+  omitBy.forEach((omitByItem) => {
+    newFilter = _(newFilter).omitBy(_[omitByItem]);
+  });
+  newFilter = _(newFilter).value();
+  return JSON.stringify(newFilter);
 }
